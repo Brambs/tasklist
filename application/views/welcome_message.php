@@ -2,13 +2,11 @@
 <html lang="en">
   	<head>
 	    <meta charset="utf-8">
-	    <title></title>
+	    <title>Sonatask</title>
 	    <meta name="robots" content="index, follow">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <link href="css/styles.css" rel="stylesheet">
-	    <!--[if lte IE 8]>
-		<script src="js/respond.min.js"></script>
-		<![endif]-->
+	    <script type="text/javascript" href="javascript/jquery-2.1.1.js"></script>
 	</head>
 	<body class="light">
 		<div class="main">
@@ -16,8 +14,8 @@
 				<a href="index.html" class="logo"></a>
 			</header>
 			<section class="active">
-				<input type="text" placeholder="Â¿QuÃ© tienes que hacer?" class="add-item">
-				<a href="#" class="add-btn"></a>
+				<input type="text" placeholder="¿Qu&eacute; tienes que hacer?" class="add-item">
+				<a href="#" class="add-btn">+</a>
 
 				<ul>
 					<li><input type="checkbox"> Item 1</li>
