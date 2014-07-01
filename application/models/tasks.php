@@ -7,7 +7,7 @@ class tasks extends CI_Model {
 	{
 		try
 		{
-			$this->db->where('status', '1');
+			$this->db->where('status', 1);
 			$return=$this->db->get('taks');
 			return $return->result();
 		}
@@ -24,7 +24,7 @@ class tasks extends CI_Model {
 	{
 		try
 		{
-			$this->db->where('status', '0');
+			$this->db->where('status', 0);
 			$return=$this->db->get('status', 'Inactive');
 			return $return->result();
 		}
