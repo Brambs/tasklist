@@ -1,6 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class tasks extends CI_Model {
+class Tasks_model extends CI_Model {
+
+	 function __construct()
+    {
+        // Call the Model constructor
+        parent::__construct();
+    } 
+
 	//List all active task list
 	//called from index
 	function list_active()
@@ -8,7 +15,7 @@ class tasks extends CI_Model {
 		try
 		{
 			$this->db->where('status', '1');
-			$return=$this->db->get('taks');
+			$return=$this->db->get('tasks');
 			return $return->result();
 		}
 		catch(Exception $e)

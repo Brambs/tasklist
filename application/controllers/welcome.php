@@ -6,7 +6,7 @@ class Welcome extends CI_Controller {
 	{
 		parent::__construct();
 		//Do your magic here
-		$this->load->model('tasks');
+		$this->load->model('tasks_model');
 	}
 
 	/**
@@ -29,9 +29,17 @@ class Welcome extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 
-	public function removeall()
+	public function addtask()
 	{
-		$result=$this->tasks->remove_all();
+		$content=$this->input->post('content');
+		$result = $this->tasks_model->add_item($content);
+		echo $result;
+		//echo "wazaaa";
+	}
+
+	public function removeAll()
+	{
+		$result=$this->tasks_model->remove_all();
 		echo $result;
 	}
 }
