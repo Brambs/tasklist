@@ -37,6 +37,25 @@ class Welcome extends CI_Controller {
 		//echo "wazaaa";
 	}
 
+	public function active()
+	{
+		$result=$this->tasks_model->list_active();
+		echo json_encode($result);
+	}
+
+	public function inactive()
+	{
+		$result=$this->tasks_model->list_inactive();
+		echo json_encode($result);
+	}
+
+	public function setinactive()
+	{
+		$id=$this->input->post('id');
+		$result=$this->tasks_model->set_inactive($id);
+		echo $result;
+	}
+
 	public function removeAll()
 	{
 		$result=$this->tasks_model->remove_all();

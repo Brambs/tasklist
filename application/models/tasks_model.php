@@ -14,7 +14,8 @@ class Tasks_model extends CI_Model {
 	{
 		try
 		{
-			$this->db->where('status', '1');
+			$this->db->where('status', 1);
+			$this->db->order_by('id', 'desc');
 			$return=$this->db->get('tasks');
 			return $return->result();
 		}
@@ -31,7 +32,8 @@ class Tasks_model extends CI_Model {
 	{
 		try
 		{
-			$this->db->where('status', '0');
+			$this->db->where('status', 0);
+			$this->db->order_by('id', 'desc');
 			$return=$this->db->get('tasks');
 			return $return->result();
 		}
@@ -59,6 +61,21 @@ class Tasks_model extends CI_Model {
 		
 	}
 
+	//set a tas as inactive
+//callled from checkbox-cheked
+function set_inactive($id)
+{
+	try
+	{
+		$data = array('status' => 0);
+		$this->db->where('id', $id);
+		$this->db->update('tasks', $data);
+		return 'OK';
+	}
+	catch(Exception $e)
+	{
+		throw Exception($e);
+	}
 }
 //Delete all inactive tasks from the DB
 //called from inactive- remove all
@@ -75,6 +92,10 @@ function remove_all()
 		throw Exception($e);
 	}
 }
+
+}
+
+
 
 /* End of file tasks.php */
 /* Location: ./application/models/tasks.php */

@@ -18,15 +18,15 @@
 				<input type="text" placeholder="¿Qu&eacute; tienes que hacer?" class="add-item">
 				<a href="#" class="add-btn">+</a>
 
-				<ul>
-					<li><input type="checkbox"> Item 1</li>
-					<li><input type="checkbox" class="edit"> Item 2 <a href="#" class="submit"></a></li>
-					<li><input type="checkbox"> Item 3</li>
+				<ul  id="active-list">
+					<li><input type="checkbox" class="checkbox"> Item 1</li>
+					<li><input type="checkbox" class="edit checkbox"> Item 2 <a href="#" class="submit"></a></li>
+					<li><input type="checkbox" class="checkbox"> Item 3</li>
 				</ul>
 			</section>
 			<section class="inactive">
 				<h2>Actividades completadas</h2>
-				<ul>
+				<ul id="inactive-list">
 					<li><input type="checkbox"> Item 1</li>
 					<li><input type="checkbox"> Item 2</li>
 					<li><input type="checkbox"> Item 3</li>
