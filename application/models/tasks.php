@@ -7,7 +7,7 @@ class tasks extends CI_Model {
 	{
 		try
 		{
-			$this->db->where('status', 1);
+			$this->db->where('status', '1');
 			$return=$this->db->get('taks');
 			return $return->result();
 		}
@@ -24,8 +24,8 @@ class tasks extends CI_Model {
 	{
 		try
 		{
-			$this->db->where('status', 0);
-			$return=$this->db->get('status', 'Inactive');
+			$this->db->where('status', '0');
+			$return=$this->db->get('tasks');
 			return $return->result();
 		}
 		catch(Exception $e)
@@ -52,6 +52,21 @@ class tasks extends CI_Model {
 		
 	}
 
+}
+//Delete all inactive tasks from the DB
+//called from inactive- remove all
+function remove_all()
+{
+	try
+	{
+		$this->db->where('status', 0);
+		$this->db->delete('tasks');
+		return 'OK';
+	}
+	catch(Exception $e)
+	{
+		throw Exception($e);
+	}
 }
 
 /* End of file tasks.php */
