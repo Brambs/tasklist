@@ -11,7 +11,9 @@
 	    <script type="text/javascript" src="javascript/index.js"></script>
 	</head>
 	<body class="light">
+		
 		<div class="main">
+			<div class="notification"></div>
 			<header class="header">
 				<a href="index.html" class="logo"></a>
 			</header>
@@ -29,13 +31,13 @@
 				</ul>
 			</section>
 			<section class="inactive">
-				<h3>Actividades completadas</h3>
+				<h3>Completed tasks</h3>
 				<ul id="inactive-list">
 					<li><input type="checkbox"> Item 1</li>
 					<li><input type="checkbox"> Item 2</li>
 					<li><input type="checkbox"> Item 3</li>
 				</ul>
-				<a href="#" class="clear"><img src="images/clear.png"><br>Despejar</a>
+				<a href="#" class="clear"><img src="images/clear.png"><br>Clear all</a>
 			</section>
 		</div>
 	</body>

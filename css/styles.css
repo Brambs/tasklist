@@ -64,7 +64,8 @@ h2 {
 }
 
 h3 {
-	font-size: .750em;
+	font-size: 1.5em;
+    color: #939393;
 	margin: 1em 0;
 }
 
@@ -73,6 +74,7 @@ h3 {
 	margin: 0 auto;
 	background: #E4DBE3;
 	padding: 0 1em 1em;
+    position: relative;
 }
 
 .header {
@@ -127,12 +129,14 @@ a.clear {
    
     text-decoration: none;
     color: #939393;
-    /*background: url(../images/clear.png) left center no-repeat;*/
    
 }
 
 
-/* joel */
+ul li{
+    padding: 0.5em 0;
+
+}
 
 .add-container {
     overflow: auto;
@@ -175,4 +179,17 @@ html[xmlns] .clearfix {
 }
 * html .clearfix {
     height: 1%;
+}
+
+.notification {
+    max-width:640px;
+    margin: 0 auto;
+    background: #dad5c0;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    padding:0 1em;
+    position:absolute;
+    right: 0px;
+    top:0;
 }

@@ -18,6 +18,7 @@ $(document).ready(function(){
 		}
 	});
 
+	$('.notification').hide();
 
 });
 
@@ -37,13 +38,13 @@ function addTask()
 		},
 		error:function(x,y,z)
 		{
-			alert('Error');
+			notify('Error when creating task');
 		}
 	});
 	}
 	else
 	{
-		alert('Empty Fields not allowed!');
+		notify('Empty Fields not allowed!');
 	}
 	
 }
@@ -66,7 +67,7 @@ function loadActive()
 			},
 			error:function(x,y,z)
 			{
-				alert('Error en coleccion');
+				notify('Error when loading active tasks');
 			}
 		});
 }
@@ -81,15 +82,24 @@ function loadInactive()
 			{
 				var jdata = $.parseJSON(data);
 				$('#inactive-list').empty();
-				for(x = 0; x < jdata.length; x++)
+				if(jdata.length > 0)
 				{
-					$('#inactive-list').append('<li><input type="checkbox" checked="true" value="'+jdata[x].id+'">' + jdata[x].content + '</li>');
+					$('.inactive').show();
+					for(x = 0; x < jdata.length; x++)
+					{
+
+						$('#inactive-list').append('<li><input type="checkbox" checked="true" value="'+jdata[x].id+'">' + jdata[x].content + '</li>');
+					}
+				}
+				else
+				{
+					$('.inactive').hide();
 				}
 				controlBinding();
 			},
 			error:function(x,y,z)
 			{
-				alert('Error en coleccion');
+				notify('Error when loading inactive tasks');
 			}
 		});
 }
@@ -104,7 +114,7 @@ function removeAll()
 		},
 		error:function(x,y,z)
 		{
-			alert('Error');
+			notify('Error when trying to delete inactive tasks');
 		}
 	});
 }
@@ -121,13 +131,13 @@ function updatedContent(id,content)
 			loadActive();
 		},
 		error:function(x,y,z){
-			alert('Error when updating content');
+			notify('Error when updating content');
 		}
 	});
 	}
 	else
 	{
-		alert('Field Characters incorrect.');
+		notify('Field Characters incorrect');
 	}
 	
 }
@@ -143,8 +153,7 @@ function controlBinding()
 				var taskid=$(this).attr('taskid');
 				var taskContent=$(this).val();
 				updatedContent(taskid,taskContent);
-				//$(this).off('click');
-				//updatedContent();
+			
 			}
 		});
 	});
@@ -164,7 +173,7 @@ function controlBinding()
         		},
         		error:function(x,y,z)
         		{
-        			alert('Error inactivo');
+        			notify('Error on deactivation');
         		}
         	});
         	
@@ -179,9 +188,19 @@ function controlBinding()
         			loadInactive();
         		},
         		error:function(x,y,z){
-        			alert('Error al activar');
+        			notify('Error when activating');
         		}
         	});
         }
     });
+}
+
+function notify(text)
+{
+	$('.notification').html(text);
+	$('.notification').show();
+	setTimeout(function(){
+		$('.notification').hide();
+	}, 2000);
+
 }
