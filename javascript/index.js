@@ -3,22 +3,35 @@ $(document).ready(function(){
 	loadInactive();
 
 	$('.add-btn').click(function(){
-		//alert('Click');
+		
 		addTask();
 	});
 	
+	$('.clear').click(function(){
+		removeAll();
+	});
+
+	$('.add-item').keyup(function(e){
+		if(e.keyCode==13)
+		{
+			addTask();
+		}
+	});
+
+
 });
 
 function addTask()
 {
 	var taskText = $('.add-item').val();
-	$.ajax({
+	if(taskText.length>0 && taskText.length<500)
+	{
+		$.ajax({
 		url:'http://localhost/tasklist/index.php/welcome/addtask',
 		data:{'content':taskText},
 		type:'POST',
 		success:function(data){
-			//alert(data);
-			//$(section .active ul).append('<li><input type="checkbox"></li>');
+			
 			loadActive();
 			$('.add-item').val('');
 		},
@@ -27,6 +40,12 @@ function addTask()
 			alert('Error');
 		}
 	});
+	}
+	else
+	{
+		alert('Empty Fields not allowed!');
+	}
+	
 }
 
 function loadActive()
@@ -41,7 +60,7 @@ function loadActive()
 				$('#active-list').empty();
 				for(x = 0; x < jdata.length; x++)
 				{
-					$('#active-list').append('<li><input type="checkbox" class="checkbox" value="' + jdata[x].id + '">' + jdata[x].content + '</li>');
+					$('#active-list').append('<li><input type="checkbox" class="checkbox" value="' + jdata[x].id + '"><label>'+ jdata[x].content +'</label><input type="hidden" value="' + jdata[x].content + '" class="edit" taskid="'+jdata[x].id+'"></li>');
 				}
 				controlBinding();
 			},
@@ -64,7 +83,7 @@ function loadInactive()
 				$('#inactive-list').empty();
 				for(x = 0; x < jdata.length; x++)
 				{
-					$('#inactive-list').append('<li><input type="checkbox">' + jdata[x].content + '</li>');
+					$('#inactive-list').append('<li><input type="checkbox" checked="true" value="'+jdata[x].id+'">' + jdata[x].content + '</li>');
 				}
 				controlBinding();
 			},
@@ -78,11 +97,10 @@ function loadInactive()
 function removeAll()
 {
 	$.ajax({
-		url:'localhost/taskslist/removeall',
+		url:'http://localhost/tasklist/index.php/welcome/removeall',
 		type:'POST',
 		success:function(data){
-			alert(data);
-			//$(section .inactive ul).empty();
+			loadInactive();
 		},
 		error:function(x,y,z)
 		{
@@ -91,12 +109,49 @@ function removeAll()
 	});
 }
 
+function updatedContent(id,content)
+{
+	if(content.length>0 && content.length<500 && content!='')
+	{
+		$.ajax({
+		url:'http://localhost/tasklist/index.php/welcome/updatecontent',
+		type:'POST',
+		data:{'id': id, 'content':content},
+		success:function(data){
+			loadActive();
+		},
+		error:function(x,y,z){
+			alert('Error when updating content');
+		}
+	});
+	}
+	else
+	{
+		alert('Field Characters incorrect.');
+	}
+	
+}
 
 function controlBinding()
 {
+	$('li').on('click', function(){
+		$(this).children('label').hide();
+		$(this).children('.edit').attr('type', 'text');
+		$('.edit').keyup(function(e){
+			if(e.keyCode==13)
+			{
+				var taskid=$(this).attr('taskid');
+				var taskContent=$(this).val();
+				updatedContent(taskid,taskContent);
+				//$(this).off('click');
+				//updatedContent();
+			}
+		});
+	});
+
 	 $("input[type=checkbox]").click(function() {
+        var idTask=this.value;
         if(this.checked){
-        	var idTask=this.value;
         	$.ajax({
         		url:'http://localhost/tasklist/index.php/welcome/setinactive',
         		data:{'id':idTask},
@@ -105,13 +160,28 @@ function controlBinding()
         		{
         			loadActive();
         			loadInactive();
+
         		},
         		error:function(x,y,z)
         		{
         			alert('Error inactivo');
         		}
         	});
-        	//alert(this.value);
+        	
+        }
+        else{
+        	$.ajax({
+        		url:'http://localhost/tasklist/index.php/welcome/setactive',
+        		data:{'id':idTask},
+        		type:'POST',
+        		success:function(data){
+        			loadActive();
+        			loadInactive();
+        		},
+        		error:function(x,y,z){
+        			alert('Error al activar');
+        		}
+        	});
         }
     });
 }

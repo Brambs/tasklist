@@ -49,6 +49,13 @@ class Welcome extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function setactive()
+	{
+		$id = $this->input->post('id');
+		$result = $this->tasks_model->set_active($id);
+		echo $result;
+	}
+
 	public function setinactive()
 	{
 		$id=$this->input->post('id');
@@ -56,9 +63,17 @@ class Welcome extends CI_Controller {
 		echo $result;
 	}
 
-	public function removeAll()
+	public function removeall()
 	{
 		$result=$this->tasks_model->remove_all();
+		echo $result;
+	}
+
+	public function updatecontent()
+	{
+		$id=$this->input->post('id');
+		$content=$this->input->post('content');
+		$result = $this->tasks_model->update_content($id,$content);
 		echo $result;
 	}
 }

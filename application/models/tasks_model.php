@@ -61,37 +61,71 @@ class Tasks_model extends CI_Model {
 		
 	}
 
-	//set a tas as inactive
-//callled from checkbox-cheked
-function set_inactive($id)
-{
-	try
+	//set a task as active
+	//called from checkbox-unchecked
+	function set_active($id)
 	{
-		$data = array('status' => 0);
-		$this->db->where('id', $id);
-		$this->db->update('tasks', $data);
-		return 'OK';
+		try
+		{
+			$data = array('status' => 1);
+			$this->db->where('id', $id);
+			$this->db->update('tasks', $data);
+			return 'OK';
+		}
+		catch(Exception $e)
+		{
+			throw Exception($e);
+		}
 	}
-	catch(Exception $e)
+
+	//set a task as inactive
+	//callled from checkbox-cheked
+	function set_inactive($id)
 	{
-		throw Exception($e);
+		try
+		{
+			$data = array('status' => 0);
+			$this->db->where('id', $id);
+			$this->db->update('tasks', $data);
+			return 'OK';
+		}
+		catch(Exception $e)
+		{
+			throw Exception($e);
+		}
 	}
-}
-//Delete all inactive tasks from the DB
-//called from inactive- remove all
-function remove_all()
-{
-	try
+
+	//Delete all inactive tasks from the DB
+	//called from inactive- remove all
+	function remove_all()
 	{
-		$this->db->where('status', 0);
-		$this->db->delete('tasks');
-		return 'OK';
+		try
+		{
+			$this->db->where('status', 0);
+			$this->db->delete('tasks');
+			return 'OK';
+		}
+		catch(Exception $e)
+		{
+			throw Exception($e);
+		}
 	}
-	catch(Exception $e)
+
+	//Update task's content text
+	function update_content($id, $content)
 	{
-		throw Exception($e);
+		try
+		{
+			$data = array('content' => $content);
+			$this->db->where('id', $id);
+			$this->db->update('tasks', $data);
+			return 'OK';
+		}
+		catch(Exception $e)
+		{
+			throw Exception($e);
+		}
 	}
-}
 
 }
 
